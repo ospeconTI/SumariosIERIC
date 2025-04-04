@@ -15,10 +15,7 @@ namespace OSPeConTI.SumariosIERIC.Domain.Entities
         public string Apellido { get; set; }
         public string Nombre { get; set; }
         public string CodigoIERIC { get; set; }
-        public Inspector()
-        {
-
-        }
+        private Inspector() { }
         public Inspector(string apellido)
         {
             Apellido = apellido;

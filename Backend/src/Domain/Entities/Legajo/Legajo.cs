@@ -24,7 +24,7 @@ namespace OSPeConTI.SumariosIERIC.Domain.Entities
 
         public Estado Estado { get; private set; }
 
-        public Legajo() { }
+        private Legajo() { }
         public Legajo(Cuit cuit, DateTime fechaIngreso)
         {
             if (fechaIngreso == null) throw new SumariosDomainException("La Fecha de ingreso no puede ser vacia");

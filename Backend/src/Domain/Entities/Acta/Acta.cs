@@ -15,10 +15,7 @@ namespace OSPeConTI.SumariosIERIC.Domain.Entities
         public Direccion Domicilio { get; set; }
         public DateTime FechaControl { get; set; }
         public int CantidadObreros { get; set; }
-        public Acta()
-        {
-
-        }
+        private Acta() { }
         public Acta(Direccion domicilio)
         {
             Domicilio = domicilio;
