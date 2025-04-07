@@ -39,9 +39,9 @@ namespace OSPeConTI.SumariosIERIC.Domain.Entities
             Actas.Add(acta);
             return acta.Id;
         }
-        public void HacerInviable()
+        public void EsAntiEconomico()
         {
-            this.Estado = Estado.Inviable;
+            this.Estado = Estado.AntiEconomico;
         }
         public void DarPorFinalizado()
         {

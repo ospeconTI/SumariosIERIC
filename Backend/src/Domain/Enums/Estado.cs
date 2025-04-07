@@ -10,11 +10,11 @@ public class Estado : Enumeration
     {
     }
     public static Estado Pendiente = new Estado(1, nameof(Pendiente).ToLowerInvariant());
-    public static Estado Inviable = new Estado(2, nameof(Inviable).ToLowerInvariant());
+    public static Estado AntiEconomico = new Estado(2, nameof(AntiEconomico).ToLowerInvariant());
     public static Estado Finalizado = new Estado(3, nameof(Finalizado).ToLowerInvariant());
 
     public static IEnumerable<Estado> List() =>
-               new[] { Pendiente, Inviable, Finalizado };
+               new[] { Pendiente, AntiEconomico, Finalizado };
     public static Estado FromName(string nombre)
     {
         var state = List()
