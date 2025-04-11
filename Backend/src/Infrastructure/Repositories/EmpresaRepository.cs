@@ -4,7 +4,6 @@ using OSPeConTI.SumariosIERIC.Domain.SeedWork;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Collections;
 using OSPeConTI.SumariosIERIC.Domain.ValueObjects.Network;
 
 namespace OSPeConTI.SumariosIERIC.Infrastructure.Repositories

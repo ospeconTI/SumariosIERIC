@@ -15,6 +15,9 @@ using System.Security.Claims;
 using System.Security.Principal;
 using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore.Query;
+using Microsoft.Extensions.Configuration;
+using System.IO;
+using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace OSPeConTI.SumariosIERIC.Infrastructure
 {
@@ -23,6 +26,8 @@ namespace OSPeConTI.SumariosIERIC.Infrastructure
         public const string DEFAULT_SCHEMA = "dbo";
 
         public DbSet<Empresa> Empresas { get; set; }
+        public DbSet<Inspector> Inspectores { get; set; }
+        public DbSet<Legajo> Legajos { get; set; }
 
 
         private readonly IMediator _mediator;
@@ -176,31 +181,36 @@ namespace OSPeConTI.SumariosIERIC.Infrastructure
     {
         public SumariosContext CreateDbContext(string[] args)
         {
+
             string env = args.Length == 0 ? "" : args[0];
+
             if (env != "Prod" && env != "Dev" && env != "Test")
             {
                 throw new Exception("Indique el entorno (\"Prod\" para produción o \"Dev\" para Desarrollo, ejemplo: dotnet ef database update -s ../application -- \"Prod\")");
             }
+
+            IConfigurationRoot configuration = null;
+
             if (env == "Prod")
             {
-                var optionsBuilder = new DbContextOptionsBuilder<SumariosContext>()
-                .UseSqlServer("Server=10.1.10.211,1470;Initial Catalog=Materiales;user id=sa;password=oSpEcONSQL3578951; TrustServerCertificate=True");
-                return new SumariosContext(optionsBuilder.Options, new NoMediator());
+                configuration = new ConfigurationBuilder().AddJsonFile("appSettings.production.json").Build();
             }
+
             if (env == "Dev")
             {
-                var optionsBuilder = new DbContextOptionsBuilder<SumariosContext>()
-                .UseSqlServer("Server=localhost,1460;Initial Catalog=Sumarios;user id=sa;password=oSpEcONSQL3578951; TrustServerCertificate=True");
-                return new SumariosContext(optionsBuilder.Options, new NoMediator());
+                configuration = new ConfigurationBuilder().AddJsonFile("appSettings.development.json").Build();
             }
 
             if (env == "Test")
             {
-                var optionsBuilder = new DbContextOptionsBuilder<SumariosContext>()
-                .UseSqlServer("Server=10.1.10.212,1470;Initial Catalog=Sumarios;user id=sa;password=oSpEcONSQL3578951; TrustServerCertificate=True");
-                return new SumariosContext(optionsBuilder.Options, new NoMediator());
+                configuration = new ConfigurationBuilder().AddJsonFile("appSettings.test.json").Build();
             }
-            return null;
+
+            var optionsBuilder = new DbContextOptionsBuilder<SumariosContext>()
+                            .UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
+
+            return new SumariosContext(optionsBuilder.Options, new NoMediator());
+
         }
 
         class NoMediator : IMediator

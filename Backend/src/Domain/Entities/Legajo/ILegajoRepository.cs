@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using System;
 using OSPeConTI.SumariosIERIC.Domain.ValueObjects.Network;
+using OSPeConTI.SumariosIERIC.Domain.Enums;
 
 namespace OSPeConTI.SumariosIERIC.Domain.Entities
 {
@@ -12,9 +13,10 @@ namespace OSPeConTI.SumariosIERIC.Domain.Entities
         Guid Agregar(Legajo Legajo);
         Task<Legajo> GetById(Guid id);
         Task<Legajo> GetByCuit(Cuit cuil);
-        bool Delete(Guid id);
         bool ActivarLegajo(Legajo Legajo);
         Task<bool> ExistAny(Cuit cuit);
+        bool DarPorFinalizadoPorInspector(Inspector inspector);
+
 
     }
 }
