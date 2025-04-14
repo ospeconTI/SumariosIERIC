@@ -17,6 +17,7 @@ namespace OSPeConTI.SumariosIERIC.Infrastructure.EntityConfigurations
             LegajoConfiguration.HasKey(o => o.Id);
 
             LegajoConfiguration.Ignore(b => b.DomainEvents);
+            LegajoConfiguration.Ignore(b => b.Estado);
 
             var converter = new ValueConverter<Cuit, Int64>(from => from, to => (Cuit)to);
             LegajoConfiguration.Property(p => p.CUIT).HasConversion(converter).HasColumnType("bigint");

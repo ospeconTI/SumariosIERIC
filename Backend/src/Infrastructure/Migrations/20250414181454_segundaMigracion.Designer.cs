@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OSPeConTI.SumariosIERIC.Infrastructure;
 
@@ -11,9 +12,11 @@ using OSPeConTI.SumariosIERIC.Infrastructure;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(SumariosContext))]
-    partial class SumariosContextModelSnapshot : ModelSnapshot
+    [Migration("20250414181454_segundaMigracion")]
+    partial class segundaMigracion
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

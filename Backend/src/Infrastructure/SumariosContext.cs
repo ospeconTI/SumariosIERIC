@@ -28,7 +28,7 @@ namespace OSPeConTI.SumariosIERIC.Infrastructure
         public DbSet<Empresa> Empresas { get; set; }
         public DbSet<Inspector> Inspectores { get; set; }
         public DbSet<Legajo> Legajos { get; set; }
-
+        public DbSet<Acta> Actas { get; set; }
 
         private readonly IMediator _mediator;
         private IDbContextTransaction _currentTransaction;
@@ -57,6 +57,9 @@ namespace OSPeConTI.SumariosIERIC.Infrastructure
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new EmpresaEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new LegajoEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new ActaEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new InspectorEntityTypeConfiguration());
 
             Expression<Func<Entity, bool>> filterExpr = bm => bm.Activo;
             foreach (var mutableEntityType in modelBuilder.Model.GetEntityTypes())
