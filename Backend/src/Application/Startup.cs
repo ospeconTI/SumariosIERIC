@@ -281,6 +281,9 @@ namespace OSPeConTI.SumariosIERIC.Application
             services
                  .AddScoped(typeof(IUsuarioRepository),
                   typeof(UsuarioRepository));
+            services
+           .AddScoped(typeof(IInspectorRepository),
+            typeof(InspectorRepository));
 
 
 

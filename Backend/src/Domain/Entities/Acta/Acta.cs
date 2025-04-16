@@ -5,6 +5,7 @@ using OSPeConTI.SumariosIERIC.Domain.Events;
 using System.Security.Cryptography.X509Certificates;
 using OSPeConTI.SumariosIERIC.Domain.ValueObjects.Location;
 using System;
+using System.Collections.Generic;
 
 
 namespace OSPeConTI.SumariosIERIC.Domain.Entities
