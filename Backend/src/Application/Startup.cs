@@ -343,8 +343,8 @@ namespace OSPeConTI.SumariosIERIC.Application
             services.AddTransient<EmpresaModificadaIntegrationEventHandler>();
             services
                 .AddTransient
-                <IEmpresaIntegrationEventService,
-                    EmpresaIntegrationEventService
+                <ISumariosIntegrationEventService,
+                    SumariosIntegrationEventService
                 >();
 
             services

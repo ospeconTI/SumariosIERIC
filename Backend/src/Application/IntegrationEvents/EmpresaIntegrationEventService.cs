@@ -12,19 +12,19 @@ using OSPeConTI.SumariosIERIC.Infrastructure;
 
 namespace OSPeConTI.SumariosIERIC.Application.IntegrationEvents
 {
-    public class EmpresaIntegrationEventService : IEmpresaIntegrationEventService
+    public class SumariosIntegrationEventService : ISumariosIntegrationEventService
     {
         private readonly Func<DbConnection, IIntegrationEventLogService> _integrationEventLogServiceFactory;
         private readonly IEventBus _eventBus;
         private readonly SumariosContext _SumariosContext;
         private readonly IIntegrationEventLogService _eventLogService;
-        private readonly ILogger<EmpresaIntegrationEventService> _logger;
+        private readonly ILogger<SumariosIntegrationEventService> _logger;
 
-        public EmpresaIntegrationEventService(IEventBus eventBus,
+        public SumariosIntegrationEventService(IEventBus eventBus,
             SumariosContext catalogoMaterialesContext,
             IntegrationEventLogContext eventLogContext,
             Func<DbConnection, IIntegrationEventLogService> integrationEventLogServiceFactory,
-            ILogger<EmpresaIntegrationEventService> logger)
+            ILogger<SumariosIntegrationEventService> logger)
         {
             _SumariosContext = catalogoMaterialesContext ?? throw new ArgumentNullException(nameof(catalogoMaterialesContext));
             _integrationEventLogServiceFactory = integrationEventLogServiceFactory ?? throw new ArgumentNullException(nameof(integrationEventLogServiceFactory));
