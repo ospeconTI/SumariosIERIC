@@ -17,7 +17,7 @@ namespace OSPeConTI.SumariosIERIC.Domain.Events
 
         public async Task Handle(InspectorCreadoRequested notification, CancellationToken cancellationToken)
         {
-            if (await InspectorRepository.EsUnico(notification.Inspector)) throw new SumariosDomainException("El inspector ya existe en nuestros registros");
+            if (!await InspectorRepository.EsUnico(notification.Inspector)) throw new SumariosDomainException("El inspector ya existe en nuestros registros");
         }
     }
 }

@@ -46,6 +46,7 @@ using System.Security.Principal;
 using Newtonsoft.Json.Serialization;
 using Microsoft.Extensions.Options;
 using Minio;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 
 namespace OSPeConTI.SumariosIERIC.Application
@@ -85,12 +86,22 @@ namespace OSPeConTI.SumariosIERIC.Application
 
         public IConfiguration Configuration { get; }
 
+
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddTransient<IPrincipal>(
-                provider => provider.GetService<IHttpContextAccessor>().HttpContext.User);
+                provider =>
+                {
+                    var httpContext = provider.GetService<IHttpContextAccessor>().HttpContext;
+                    if (httpContext == null)
+                    {
+                        IPrincipal principal = null;
+                        return principal;
+                    };
+                    return httpContext.User;
+                });
             services.AddControllersWithViews().AddNewtonsoftJson();
             //services.AddAuthorization();
             services.AddAutorizacion(Configuration);
@@ -174,7 +185,7 @@ namespace OSPeConTI.SumariosIERIC.Application
             //services.AddAuthentication(Configuration);
 
             // Eventos de Integracion
-            //services.AddEventBus(Configuration);
+            services.AddEventBus(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -205,19 +216,14 @@ namespace OSPeConTI.SumariosIERIC.Application
             }
 
             // Suscribirse a eventos de integacion
-            //ConfigureEventBus(app);
+            ConfigureEventBus(app);
         }
 
         private void ConfigureEventBus(IApplicationBuilder app)
         {
-            var eventBus =
-                app.ApplicationServices.GetRequiredService<IEventBus>();
-            eventBus
-                .Subscribe
-                <EmpresaModificadaIntegrationEvent,
-                    EmpresaModificadaIntegrationEventHandler
-                >();
-            //eventBus.Subscribe<MaterialCreadoIntegrationEvent, MaterialCreadoIntegrationEventHandler>();
+            var eventBus = app.ApplicationServices.GetRequiredService<IEventBus>();
+            eventBus.Subscribe<EmpresaCreadaIntegrationEvent, EmpresaCreadaIntegrationEventHandler>();
+
         }
 
         private void ConfigureErrors(IApplicationBuilder app)
@@ -284,6 +290,9 @@ namespace OSPeConTI.SumariosIERIC.Application
             services
            .AddScoped(typeof(IInspectorRepository),
             typeof(InspectorRepository));
+            services
+          .AddScoped(typeof(IEmpresaRepository),
+           typeof(EmpresaRepository));
 
 
 
@@ -296,16 +305,8 @@ namespace OSPeConTI.SumariosIERIC.Application
             IConfiguration configuration
         )
         {
-
-
-
-            services
-       .AddTransient(typeof(
-           INotificationHandler<EmpresaNuevaRequested>
-       ),
-        typeof(EmpresaNuevaDomainEventHandler));
-
-
+            services.AddTransient(typeof(INotificationHandler<EmpresaNuevaRequested>), typeof(EmpresaNuevaDomainEventHandler));
+            services.AddTransient(typeof(INotificationHandler<InspectorCreadoRequested>), typeof(VerificarUnicidadAlCrearInspector));
             return services;
         }
 
@@ -340,7 +341,7 @@ namespace OSPeConTI.SumariosIERIC.Application
         )
         {
             //services.AddTransient<MaterialCreadoIntegrationEventHandler>();
-            services.AddTransient<EmpresaModificadaIntegrationEventHandler>();
+            services.AddTransient<EmpresaCreadaIntegrationEventHandler>();
             services
                 .AddTransient
                 <ISumariosIntegrationEventService,

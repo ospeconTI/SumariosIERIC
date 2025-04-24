@@ -49,17 +49,17 @@ namespace OSPeConTI.SumariosIERIC.Infrastructure.Repositories
 
         public async Task<bool> EsUnico(Inspector inspector)
         {
-            return _context.Inspectores.Any(i => i.Id != inspector.Id && (i.Apellido == inspector.Apellido && i.Nombre == inspector.Nombre || i.CodigoIERIC == inspector.CodigoIERIC));
+            return !_context.Inspectores.Any(i => i.Id != inspector.Id && (i.Apellido == inspector.Apellido && i.Nombre == inspector.Nombre || i.CodigoIERIC == inspector.CodigoIERIC));
         }
 
         public async Task<bool> EsUnicoApellidoYNombre(Inspector inspector)
         {
-            return _context.Inspectores.Any(i => i.Id != inspector.Id && i.Apellido == inspector.Apellido && i.Nombre == inspector.Nombre);
+            return !_context.Inspectores.Any(i => i.Id != inspector.Id && i.Apellido == inspector.Apellido && i.Nombre == inspector.Nombre);
         }
 
         public async Task<bool> EsUnicoCodigoIERIC(Inspector inspector)
         {
-            return _context.Inspectores.Any(i => i.Id != inspector.Id && i.CodigoIERIC == inspector.CodigoIERIC);
+            return !_context.Inspectores.Any(i => i.Id != inspector.Id && i.CodigoIERIC == inspector.CodigoIERIC);
         }
     }
 }

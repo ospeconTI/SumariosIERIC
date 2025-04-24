@@ -13,7 +13,7 @@ namespace OSPeConTI.SumariosIERIC.Application
 {
     [Route("v1/[controller]")]
     [ApiController]
-    [Authorize]
+
     public class EmpresaController : ControllerBase
     {
         private readonly IMediator _mediator;

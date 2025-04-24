@@ -7,12 +7,12 @@ namespace OSPeConTI.SumariosIERIC.Application.IntegrationEvents
     public record EmpresaCreadaIntegrationEvent : IntegrationEvent
     {
         [JsonInclude]
-        public Guid MaterialId { get; set; }
+        public Guid EmpresaId { get; set; }
 
         [JsonConstructor]
-        public EmpresaCreadaIntegrationEvent(Guid materialId)
+        public EmpresaCreadaIntegrationEvent(Guid empresaId)
         {
-            MaterialId = materialId;
+            EmpresaId = empresaId;
 
         }
     }

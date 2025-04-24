@@ -7,22 +7,27 @@ using OSPeConTI.SumariosIERIC.Domain.Entities;
 
 namespace OSPeConTI.SumariosIERIC.Application.IntegrationEvents
 {
-    public class EmpresaModificadaIntegrationEventHandler : IIntegrationEventHandler<EmpresaModificadaIntegrationEvent>
+    public class EmpresaCreadaIntegrationEventHandler : IIntegrationEventHandler<EmpresaCreadaIntegrationEvent>
     {
-        private readonly ILogger<EmpresaModificadaIntegrationEventHandler> _logger;
+        private readonly ILogger<EmpresaCreadaIntegrationEventHandler> _logger;
         private readonly IEmpresaRepository _repository;
 
-        public EmpresaModificadaIntegrationEventHandler(
-            ILogger<EmpresaModificadaIntegrationEventHandler> logger,
-            IEmpresaRepository repository)
+
+
+        public EmpresaCreadaIntegrationEventHandler(
+            ILogger<EmpresaCreadaIntegrationEventHandler> logger,
+            IEmpresaRepository repository
+)
         {
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
             _repository = repository ?? throw new ArgumentNullException(nameof(repository));
+
         }
 
-        public async Task Handle(EmpresaModificadaIntegrationEvent @event)
+        public async Task Handle(EmpresaCreadaIntegrationEvent @event)
         {
-            _logger.LogInformation("Se Modifico el Empresa Id = " + @event.EmpresaId.ToString());
+            _logger.LogInformation("Se Creo la empresa Id = " + @event.EmpresaId.ToString());
+
         }
     }
 
