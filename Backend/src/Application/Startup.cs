@@ -46,7 +46,7 @@ using System.Security.Principal;
 using Newtonsoft.Json.Serialization;
 using Microsoft.Extensions.Options;
 using Minio;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
+using System.Security.Claims;
 
 
 namespace OSPeConTI.SumariosIERIC.Application
@@ -95,11 +95,7 @@ namespace OSPeConTI.SumariosIERIC.Application
                 provider =>
                 {
                     var httpContext = provider.GetService<IHttpContextAccessor>().HttpContext;
-                    if (httpContext == null)
-                    {
-                        IPrincipal principal = null;
-                        return principal;
-                    };
+                    if (httpContext == null) return new ClaimsPrincipal(new GenericIdentity("anonymous"));
                     return httpContext.User;
                 });
             services.AddControllersWithViews().AddNewtonsoftJson();
