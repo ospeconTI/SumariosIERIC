@@ -181,7 +181,7 @@ namespace OSPeConTI.SumariosIERIC.Application
             //services.AddAuthentication(Configuration);
 
             // Eventos de Integracion
-            services.AddEventBus(Configuration);
+            //services.AddEventBus(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -212,7 +212,7 @@ namespace OSPeConTI.SumariosIERIC.Application
             }
 
             // Suscribirse a eventos de integacion
-            ConfigureEventBus(app);
+            //ConfigureEventBus(app);
         }
 
         private void ConfigureEventBus(IApplicationBuilder app)

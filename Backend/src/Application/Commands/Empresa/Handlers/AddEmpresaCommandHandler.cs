@@ -16,12 +16,13 @@ namespace OSPeConTI.SumariosIERIC.Application.Commands
     {
         private readonly IEmpresaRepository _empresasRepository;
 
-        private readonly ISumariosIntegrationEventService _sumariosIntegrationEventService;
+        //private readonly ISumariosIntegrationEventService _sumariosIntegrationEventService;
 
-        public AddEmpresaCommandHandler(IEmpresaRepository EmpresaRepository, ISumariosIntegrationEventService sumariosIntegrationEventService)
+        //public AddEmpresaCommandHandler(IEmpresaRepository EmpresaRepository, ISumariosIntegrationEventService sumariosIntegrationEventService)
+        public AddEmpresaCommandHandler(IEmpresaRepository EmpresaRepository)
         {
             _empresasRepository = EmpresaRepository;
-            _sumariosIntegrationEventService = sumariosIntegrationEventService;
+            //_sumariosIntegrationEventService = sumariosIntegrationEventService;
         }
 
         public async Task<Guid> Handle(AddEmpresaCommand command, CancellationToken cancellationToken)
@@ -30,13 +31,13 @@ namespace OSPeConTI.SumariosIERIC.Application.Commands
             _empresasRepository.Add(empresaNueva);
             await _empresasRepository.UnitOfWork.SaveEntitiesAsync(cancellationToken);
 
-            EmpresaCreadaIntegrationEvent evento = new EmpresaCreadaIntegrationEvent(empresaNueva.Id);
+            /* EmpresaCreadaIntegrationEvent evento = new EmpresaCreadaIntegrationEvent(empresaNueva.Id);
 
             Guid transactionId = Guid.NewGuid();
 
             await _sumariosIntegrationEventService.AddAndSaveEventAsync(evento, transactionId);
 
-            await _sumariosIntegrationEventService.PublishEventsThroughEventBusAsync(transactionId);
+            await _sumariosIntegrationEventService.PublishEventsThroughEventBusAsync(transactionId); */
 
             return empresaNueva.Id;
         }
